@@ -6,15 +6,15 @@ var finalScoreEl = document.getElementById("finalscore");
 var gameOverDiv = document.getElementById("gameover")
 var questionsEl = document.getElementById("questions");
 var quizTimer = document.getElementById("timer");
-var startQuizButton = document.getElementById("startbtn");
+var startQuizButton = document.getElementById("start");
 var startQuizDiv = document.getElementById("startpage");
 var highScoreContainer = document.getElementById("highscorecontainer");
 var highScoreDiv = document.getElementById("highscorepage");
 var highScoreInputName = document.getElementById("initials");
-var highScoreDisplayName = document.getElementById("highscoreintials");
+var highScoreDisplayName = document.getElementById("highscore-initials");
 var endGameBtns = document.getElementById("endgamebtns");
 var submitScoreBtn = document.getElementById("submitscore");
-var highscoreDisplayScore = document.getElementById("highscores-score");
+var highscoreDisplayScore = document.getElementById("highscore-score");
 var buttonA = document.getElementById("a");
 var buttonB = document.getElementById("b");
 var buttonC = document.getElementById("c");
@@ -70,7 +70,7 @@ var quizQuestions = [
     choiceB: "Appearing Path Integer",
     choiceC: "Application Programming Interface",
     choiceD: "Application Python Interface",
-    correctAnswer: "a"},
+    correctAnswer: "c"},
 
     {  
     question: "How do you reference an img in HTML in the instance the image does not appear?",
@@ -131,9 +131,117 @@ function startQuiz(){
 
 function showScore(){
     quizBody.style.display = "none";
-    gameOverDiv.style.display = "none";
+    gameOverDiv.style.display = "flex";
     clearInterval(timeInterval);
     highScoreInputName.value = "";
-    finalScoreEl.innerHTML = "You got " + score + "out of" + quizQuestions.length + " correct!";
+    finalScoreEl.innerHTML = "You got " + score + " out of " + quizQuestions.length + " correct!";
 }
 
+
+// action after user clicks on the submit button displays the text box for user input
+
+submitScoreBtn.addEventListener("click", function highscore(){
+
+    if(highScoreInputName.value === "") {
+        alert("Initials cannot be blank");
+        return false;
+    }
+
+    else {
+        var savedHighScores = JSON.parse(localStorage.getItem("savedHighScores")) || [];
+        var curretUser = highScoreInputName.value.trim();
+        var currentHighScore = {
+            name : curretUser,
+            score : score
+        };
+
+    gameOverDiv.style.display = "none";
+    highScoreContainer.style.display = "flex";
+    highScoreDiv.style.display = "flex";
+    endGameBtns.style.display = "flex";
+
+    savedHighScores.push(currentHighScore);
+    localStorage.setItem("savedHighScores", JSON.stringify(savedHighScores));
+    generateHighScores();
+
+    }
+
+});
+
+// clears list for high scores and generates a new high score
+
+function generateHighScores(){
+    highScoreDisplayName.innerHTML= "";
+    highscoreDisplayScore.innerHTML= "";
+    var highscores = JSON.parse(localStorage.getItem("savedHighScores")) || [];
+    for (i=0; i<highscores.length; i++){
+        var newNameSpan = document.createElement("li");
+        var newScoreSpan = document.createElement("li");
+        newNameSpan.textContent = highscores[i].name;
+        newScoreSpan.textContent = highscores[i].score;
+        highScoreDisplayName.appendChild(newNameSpan);
+        highscoreDisplayScore.appendChild(newScoreSpan);
+    }
+}
+
+
+//displays high scores and hides all other elements
+
+function showHighScore(){
+    startQuizDiv.style.display = "none"
+    gameOverDiv.style.display = "none";
+    highScoreContainer.style.display = "flex";
+    highscoreDiv.style.display = "block";
+    endGameBtns.style.display = "flex";
+
+    generateHighScores();
+}
+
+
+//clears local storage of high scores and clears text
+
+function clearScore(){
+    window.localStorage.clear();
+    highScoreDisplayName.textContent = "";
+    highscoreDisplayScore.textContent = "";
+}
+
+
+//replays quiz
+function replayQuiz(){
+    highScoreContainer.style.display = "none";
+    gameOverDiv.style.display = "none";
+    startQuizDiv.style.display = "flex";
+    endGameBtns.style.display = "none";
+    timeLeft = 60;
+    score = 0;
+    currentQuestionIndex = 0;
+}
+
+//checks responses to each answer
+
+function checkAnswer (answer){
+    correct = quizQuestions[currentQuestionIndex].correctAnswer;
+
+    if (answer === correct && currentQuestionIndex !== finalQuestionIndex){
+        score++;
+        alert("That is correct!")
+        currentQuestionIndex++;
+        generateQuizQuestion();
+    }
+
+    else if (answer !== correct && currentQuestionIndex !== finalQuestionIndex){
+        alert("That is incorrect.")
+        currentQuestionIndex++;
+        generateQuizQuestion();
+    }
+
+    else{
+        showScore();
+    }
+
+}
+
+// Start quiz button
+
+startQuizButton.addEventListener("click",startQuiz);
