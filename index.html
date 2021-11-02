@@ -12,61 +12,42 @@
     <main>
         <!-- Container for intro and questions -->
         <div class="container">
-            <section id="intro">
-                <div class="row">
-                    <div class="col-3"></div>
-                    <div class="col-6">
-                        <h2 class="d-flex justify-content-center text-center">Welcome to the Coding Quiz Challenge</h2>
-                        <h4 class="d-flex justify-content-center text-center">In this challenge, you will get 60 seconds to complete this quiz. Each question is worth 10 points, the individual with the highest score at the end will win!</h2>
-                        <button id="start" type="button" class="btn btn-success mx-auto d-block">Start Quiz</button>
-                        <button id="highscorebutton" type="button" class="btn btn-success mx-auto d-block" onclick="showHighScore()">Show High Scores</button>                                  
-                    </div>
+                <div id="startpage">
+                    <h2>Welcome to the Coding Quiz Challenge</h2>
+                    <h4>In this challenge, you will get 60 seconds to complete this quiz. Each question is worth 10 points, the individual with the highest score at the end will win!</h2>
+                    <button id="start" type="button">Start Quiz</button>
+                    <button id="highscorebutton" type="button" onclick="showHighScore()">Show High Scores</button>                                  
                 </div>
-            </section>
         <!-- Section for questions after click     -->
-            <section id="questions">
-                <div class="row">
-                    <div class="col-3"></div>
-                    <div class="col-6">
-                        <div id="quiz">
-                            <div id="timer">Time left: </div>
-                                <div id="questions"><p>Questions Placeholder</p></div>
-                                    <button id="a" class="btn btn-success d-block" onclick="checkAnswer('a')">A</button>
-                                    <button id="b" class="btn btn-success d-block" onclick="checkAnswer('b')">B</button>
-                                    <button id="c" class="btn btn-success d-block" onclick="checkAnswer('c')">C</button>
-                                    <button id="d" class="btn btn-success d-block" onclick="checkAnswer('d')">D</button>
-                                <div id="result"></div>
-                        </div>  
-                    </div>
+                <div id="quiz">
+                    <div id="timer">Time left: </div>
+                        <div id="questions"><p>Questions Placeholder</p></div>
+                            <button id="a" onclick="checkAnswer('a')">A</button>
+                            <button id="b" onclick="checkAnswer('b')">B</button>
+                            <button id="c" onclick="checkAnswer('c')">C</button>
+                            <button id="d" onclick="checkAnswer('d')">D</button>
+                        <div id="result"></div>
                 </div>
-            </section>
         <!-- Section for Name and Final Score -->
-            <section id="gameover">
-                <div class="row">
-                    <div id="finalscore" class="col-3"></div>
-                    <div class="col-6">
-                        <h2>You are Finished!</h2>
-                        <p>Your final score is:<span id="score" class="pl-1">0</span></p>
-                        <p>Enter your name:<span class="ml-1"><input placeholder="name" id="name"/></span>
-                            <button id="submit-score" class="btn btn-success mx-1 my-1 d-inline-block">Submit</button>
-                        </p>
-                    </div>
+                <div id="gameover">
+                    <div id="finalscore"></div>
+                    <input type="text" size="40" placeholder="Enter your initials for high Scores" name="initials" id="initials"/>
+                    <button id="submitscore">Submit Score</button>
                 </div>
-            </section>
         <!-- Section for high score -->
-            <section id="highscores">
-                <div class="row">
-                    <div class="col-3"></div>
-                    <div class="col-6">
-                        <h2>High Scores</h2>
-                        <ol id="score-list"></ol>
-                        <button id="playagain" class="btn btn-success mx-1 my-1 d-inline-block">Play Again</button>
-                        <button id="clearscore" class="btn btn-success mx-1 my-1 d-inline-block">Clear Score</button>
+                <div id="highscorecontainer">
+                    <div id="highscorepage">
+                        <div id="highscoreheader">
+                            <h3>User Intials</h3>
+                            <h3>Score</h3>
+                        </div>
+                        <div id="highscore-intials"></div>
+                        <div id="highscore-score"></div>
                     </div>
+                    <button id="playagain" onclick="replayQuiz()">Play Again</button> 
+                    <button id="clearhighscore" onclick="clearScore()">Clear High Scores</button>
                 </div>
-            </section>
         </div>
-
     </main>
     <script src="./assets/js/script.js"></script>
 </body>
