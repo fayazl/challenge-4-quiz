@@ -3,10 +3,22 @@
 var quizBody = document.getElementById("quiz");
 var resultsEl = document.getElementById("result");
 var finalScoreEl = document.getElementById("finalscore");
+var gameOverDiv = document.getElementById("gameover")
 var questionsEl = document.getElementById("questions");
 var quizTimer = document.getElementById("timer");
 var startQuizButton = document.getElementById("startbtn");
-var gameOverDiv = document.getElementById("gameover")
+var startQuizDiv = document.getElementById("startpage");
+var highScoreContainer = document.getElementById("highscorecontainer");
+var highScoreDiv = document.getElementById("highscorepage");
+var highScoreInputName = document.getElementById("initials");
+var highScoreDisplayName = document.getElementById("highscoreintials");
+var endGameBtns = document.getElementById("endgamebtns");
+var submitScoreBtn = document.getElementById("submitscore");
+var highscoreDisplayScore = document.getElementById("highscores-score");
+var buttonA = document.getElementById("a");
+var buttonB = document.getElementById("b");
+var buttonC = document.getElementById("c");
+var buttonD = document.getElementById("d");
 
 
 // Quiz questions
@@ -70,6 +82,7 @@ var quizQuestions = [
 
 ]
 
+//additional variables
 var finalQuestionIndex = quizQuestions.length;
 var currentQuestionIndex = 0;
 var timeLeft = 60;
