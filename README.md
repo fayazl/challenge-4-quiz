@@ -15,4 +15,4 @@
 <img src="/assets/images/screenshot.png">
 
 Github repository: https://github.com/fayazl/challenge-4-quiz
-Pages Link: 
+Pages Link: https://fayazl.github.io/challenge-4-quiz/  
